@@ -1,0 +1,9 @@
+body {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  max-width: 800px;
+  min-width: 480px;
+  margin: 0 auto;
+}
