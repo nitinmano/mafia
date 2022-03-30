@@ -9,14 +9,7 @@ const players = [
 ];
 const tasks = ["mafia", "mafia", "doctor", "cop", "villager", "villager"];
 
-// function showPlayers(players) {
-//     show = prompt("Do you want to show the availabe players? (y/n) ");
-//     console.log("Players: ");
-//     if (show === "y") {
-//         for (let i = 0; i < players.length; i++)
-//             console.log(players[i]);
-//     }
-// }
+
 Object.size = function (obj) {
     var size = 0,
         key;
@@ -192,6 +185,13 @@ while (true) {
     for (let key in doctorObj) {
         if (doctorObj[key].name === "player" + index) {
             delete doctorObj[key];
+
+        }
+    }
+
+    for (let key in copObj) {
+        if (copObj[key].name === "player" + index) {
+            delete copObj[key];
 
         }
     }
