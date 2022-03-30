@@ -8,9 +8,15 @@ const players = [
     "player6",
 ];
 const tasks = ["mafia", "mafia", "doctor", "cop", "villager", "villager"];
-votes = [0, 0, 0, 0, 0, 0];
 
-
+// function showPlayers(players) {
+//     show = prompt("Do you want to show the availabe players? (y/n) ");
+//     console.log("Players: ");
+//     if (show === "y") {
+//         for (let i = 0; i < players.length; i++)
+//             console.log(players[i]);
+//     }
+// }
 Object.size = function (obj) {
     var size = 0,
         key;
@@ -115,9 +121,6 @@ while (true) {
                 delete villagerObj[key];
                 // remove from array
                 players.splice(noofplayerToBeExecuted - 1, 1);
-                // remove from votes
-                votes.splice(noofplayerToBeExecuted - 1, 1);
-
             }
         }
         for (let key in doctorObj) {
@@ -126,10 +129,7 @@ while (true) {
                 //remove that object
                 delete doctorObj[key];
                 // remove from array
-                players.splice(noofplayerToBeExecuted - 1, 1);
-                // remove from votes
-                votes.splice(noofplayerToBeExecuted - 1, 1);
-            }
+                players.splice(noofplayerToBeExecuted - 1, 1);            }
         }
     }
     console.log(" ");
@@ -137,7 +137,7 @@ while (true) {
 
     let noofcopGuess = prompt("Enter your suspect: ");
     let copGuess = playersObj[noofcopGuess - 1].name;
-    copsGuess="Cops guess is wrong";
+    copsGuess = "Cops guess is wrong";
     console.log(" ");
     console.log("Day: ");
     console.log(announcement);
@@ -150,37 +150,49 @@ while (true) {
     console.log(" ");
     // voting among players
     console.log("Voting: ");
+    votes = [0, 0, 0, 0, 0, 0];
+
+    // show players list
+
+    show = prompt("Do you want to show the availabe players? (y/n) ");
+    console.log("Players: ");
+    if (show === "y") {
+        for (let i = 0; i < players.length; i++)
+            console.log(players[i]);
+    }
+
+
+
     for (let key in players) {
         console.log("Vote for " + players[key] + ": ");
         const vote = prompt("Enter the number of the player to be voted: ");
         votes[vote - 1]++;
+
     }
+    console.log(votes);
     // index of max of vote
     let max = Math.max(...votes);
-    let index = votes.indexOf(max);
+    let index = votes.indexOf(max)+1;
 
-    console.log(players[index] + " is voted out");
+    console.log("player"+index + " is voted out");
     // remove the player from the obj
     for (let key in mafiaObj) {
-        if (mafiaObj[key].name === players[index]) {
+        if (mafiaObj[key].name === "player" + index) {
             delete mafiaObj[key];
-            // remove from votes
-            votes.splice(index, 1);
 
         }
     }
     for (let key in villagerObj) {
-        if (villagerObj[key].name === players[index]) {
+        if (villagerObj[key].name === "player" + index) {
             delete villagerObj[key];
-            // remove from votes
-            votes.splice(index, 1);
+
         }
+            
     }
     for (let key in doctorObj) {
-        if (doctorObj[key].name === players[index]) {
+        if (doctorObj[key].name === "player" + index) {
             delete doctorObj[key];
-            // remove from votes
-            votes.splice(index, 1);
+
         }
     }
     console.log(" ");
