@@ -10,6 +10,14 @@ const players = [
 const tasks = ["mafia", "mafia", "doctor", "cop", "villager", "villager"];
 
 
+// function to remove a player from the game
+function removePlayer(player) {
+    let index = players.indexOf(player);
+    if (index > -1) {
+        players.splice(index, 1);
+    }
+}
+
 Object.defineProperties(Array.prototype, {
     count: {
         value: function (value) {
@@ -115,23 +123,24 @@ while (true) {
     }
     console.log(" ");
     let announcement = "No one Died";
-
-
-    copsGuess = "Cop Died";
+    let copsGuess = "null";
     if (Object.size(copObj) > 0) {
 
         console.log("For Cop: ");
 
         let noofcopGuess = prompt("Enter your suspect: ");
-        let copGuess = playersObj[noofcopGuess - 1].name;
+        let copGuess = "player" + noofcopGuess;
         for (let key in mafiaObj) {
             if (mafiaObj[key].name === copGuess) {
-                copsGuess = "Cops guess is right";
+
+                copsGuess = "cops guess is right";
             }
         }
+        if (copsGuess === "null") {
+            copsGuess = "cops guess is wrong";
+        }
+
     }
-    else
-        copsGuess = "Cops guess is wrong";
 
 
     if (!(playerToBeExecuted === playerToBeSaved)) {
@@ -142,7 +151,7 @@ while (true) {
                 //remove that object
                 delete villagerObj[key];
                 // remove from array
-                players.splice(noofplayerToBeExecuted - 1, 1);
+                removePlayer(playerToBeExecuted);
             }
         }
         for (let key in doctorObj) {
@@ -151,7 +160,7 @@ while (true) {
                 //remove that object
                 delete doctorObj[key];
                 // remove from array
-                players.splice(noofplayerToBeExecuted - 1, 1);
+                removePlayer(playerToBeExecuted);
             }
         }
         for (let key in copObj) {
@@ -160,7 +169,7 @@ while (true) {
                 //remove that object
                 delete copObj[key];
                 // remove from array
-                players.splice(noofplayerToBeExecuted - 1, 1);
+                removePlayer(playerToBeExecuted);
             }
         }
     }
@@ -170,7 +179,9 @@ while (true) {
     console.log(" ");
     console.log("Day: ");
     console.log(announcement);
-    console.log(copsGuess);
+    if (copsGuess !== "null") {
+        console.log(copsGuess);
+    }
     console.log(" ");
     // voting among players
     console.log("Voting: ");
@@ -220,12 +231,18 @@ while (true) {
     for (let key in mafiaObj) {
         if (mafiaObj[key].name === "player" + index) {
             delete mafiaObj[key];
+            // remove from array
+            removePlayer("player" + index);
+
 
         }
     }
     for (let key in villagerObj) {
         if (villagerObj[key].name === "player" + index) {
             delete villagerObj[key];
+            // remove from array
+            removePlayer("player" + index);
+
 
         }
 
@@ -233,6 +250,8 @@ while (true) {
     for (let key in doctorObj) {
         if (doctorObj[key].name === "player" + index) {
             delete doctorObj[key];
+            // remove from array
+            removePlayer("player" + index);
 
         }
     }
@@ -240,6 +259,8 @@ while (true) {
     for (let key in copObj) {
         if (copObj[key].name === "player" + index) {
             delete copObj[key];
+            // remove from array
+            removePlayer("player" + index);
 
         }
     }
